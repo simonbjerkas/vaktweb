@@ -5,18 +5,18 @@ import { v } from "convex/values";
 export default defineSchema({
   ...authTables,
   users: defineTable({
-    name: v.string(),
+    name: v.optional(v.string()),
     image: v.optional(v.string()),
-    email: v.string(),
-    phone: v.string(),
+    email: v.optional(v.string()),
+    emailVerificationTime: v.optional(v.number()),
+    phone: v.optional(v.string()),
+    phoneVerificationTime: v.optional(v.number()),
     address: v.optional(v.string()),
     city: v.optional(v.string()),
     zip: v.optional(v.string()),
     dob: v.optional(v.string()),
-    role: v.union(
-      v.literal("admin"),
-      v.literal("moderator"),
-      v.literal("user"),
+    role: v.optional(
+      v.union(v.literal("admin"), v.literal("moderator"), v.literal("user")),
     ),
   })
     .index("email", ["email"])
@@ -45,14 +45,10 @@ export default defineSchema({
     body: v.string(),
     parent: v.optional(v.union(v.id("comment"), v.id("news"), v.id("reports"))),
     children: v.array(v.id("comment")),
-    createdAt: v.number(),
-    updatedAt: v.number(),
   }),
   news: defineTable({
     author: v.id("users"),
     centers: v.array(v.id("centers")),
-    createdAt: v.number(),
-    updatedAt: v.number(),
     title: v.string(),
     body: v.string(),
     comment: v.array(v.id("comment")),
@@ -60,8 +56,6 @@ export default defineSchema({
   reports: defineTable({
     author: v.id("users"),
     centers: v.array(v.id("centers")),
-    createdAt: v.number(),
-    updatedAt: v.number(),
     body: v.string(),
     status: v.union(
       v.literal("pending"),
