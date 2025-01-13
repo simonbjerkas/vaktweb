@@ -1,4 +1,4 @@
-import ConvexClientProvider from "@/components/ConvexClientProvider";
+import ConvexClientProvider from "@/components/convex-client-provider";
 import { cn } from "@/lib/utils";
 import { ChatBubbleIcon, HomeIcon, ReaderIcon } from "@radix-ui/react-icons";
 import Link from "next/link";

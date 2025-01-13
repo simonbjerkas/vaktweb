@@ -29,9 +29,6 @@ export default function RootLayout({
 }>) {
   return (
     <ConvexAuthNextjsServerProvider>
-      {/* `suppressHydrationWarning` only affects the html tag,
-      // and is needed by `ThemeProvider` which sets the theme
-      // class attribute on it */}
       <html lang="en" suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
