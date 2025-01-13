@@ -18,17 +18,27 @@ export default defineSchema({
       v.literal("moderator"),
       v.literal("user"),
     ),
-  }),
-  center: defineTable({
+  })
+    .index("email", ["email"])
+    .index("phone", ["phone"]),
+  centers: defineTable({
     name: v.string(),
     address: v.string(),
     city: v.string(),
     zip: v.string(),
   }),
-  hall: defineTable({
+  halls: defineTable({
     name: v.string(),
-    center: v.id("center"),
+    center: v.id("centers"),
     capacity: v.number(),
+  }),
+  shifts: defineTable({
+    employee: v.id("users"),
+    center: v.id("centers"),
+    date: v.string(),
+    start_time: v.string(),
+    end_time: v.string(),
+    note: v.optional(v.string()),
   }),
   comment: defineTable({
     author: v.id("users"),
@@ -40,7 +50,7 @@ export default defineSchema({
   }),
   news: defineTable({
     author: v.id("users"),
-    centers: v.array(v.id("center")),
+    centers: v.array(v.id("centers")),
     createdAt: v.number(),
     updatedAt: v.number(),
     title: v.string(),
@@ -49,7 +59,7 @@ export default defineSchema({
   }),
   reports: defineTable({
     author: v.id("users"),
-    centers: v.array(v.id("center")),
+    centers: v.array(v.id("centers")),
     createdAt: v.number(),
     updatedAt: v.number(),
     body: v.string(),
