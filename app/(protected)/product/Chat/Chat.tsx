@@ -6,25 +6,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useMutation, useQuery } from "convex/react";
 import { FormEvent, useState } from "react";
-import { api } from "../../../convex/_generated/api";
+import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
 export function Chat({ viewer }: { viewer: Id<"users"> }) {
   const [newMessageText, setNewMessageText] = useState("");
-  const messages = useQuery(api.messages.list);
-  const sendMessage = useMutation(api.messages.send);
+  // const messages = useQuery(api.messages.list);
+  // const sendMessage = useMutation(api.messages.send);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setNewMessageText("");
-    sendMessage({ body: newMessageText, author: viewer }).catch((error) => {
-      console.error("Failed to send message:", error);
-    });
-  };
+  // const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   setNewMessageText("");
+  //   sendMessage({ body: newMessageText, author: viewer }).catch((error) => {
+  //     console.error("Failed to send message:", error);
+  //   });
+  // };
 
   return (
     <>
-      <MessageList messages={messages}>
+      {/* <MessageList messages={messages}>
         {messages?.map((message) => (
           <Message
             key={message._id}
@@ -47,7 +47,7 @@ export function Chat({ viewer }: { viewer: Id<"users"> }) {
             Send
           </Button>
         </form>
-      </div>
+      </div> */}
     </>
   );
 }

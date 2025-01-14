@@ -1,0 +1,117 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Center Star - made symmetrical -->
+  <path fill="#FF0000" d="
+    M 200,150
+    L 215,185
+    L 250,185
+    L 225,210
+    L 235,245
+    L 200,225
+    L 165,245
+    L 175,210
+    L 150,185
+    L 185,185 Z" />
+
+  <!-- 16 main dots with their radiating smaller dots -->
+  <g fill="#FF0000">
+    <g transform="translate(200, 200)">
+      <!-- First set (0 degrees) -->
+      <circle cx="0" cy="-70" r="6" />
+      <circle cx="0" cy="-85" r="5" />
+      <circle cx="0" cy="-98" r="4" />
+      <circle cx="0" cy="-108" r="3" />
+
+      <!-- Remaining sets rotated every 22.5 degrees -->
+      <g transform="rotate(22.5)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(45)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(67.5)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(90)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(112.5)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(135)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(157.5)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(180)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(202.5)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(225)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(247.5)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(270)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(292.5)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(315)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+      <g transform="rotate(337.5)">
+        <circle cx="0" cy="-70" r="6" />
+        <circle cx="0" cy="-85" r="5" />
+        <circle cx="0" cy="-98" r="4" />
+        <circle cx="0" cy="-108" r="3" />
+      </g>
+    </g>
+  </g>
+</svg>
