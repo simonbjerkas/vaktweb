@@ -1,56 +1,14 @@
-import {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
+import { Skeleton } from "@/components/ui/skeleton";
 import { UserMenu } from "@/components/user-menu";
-import { api } from "@/convex/_generated/api";
-import { cn } from "@/lib/utils";
-import { convexAuthNextjsToken } from "@convex-dev/auth/nextjs/server";
-import {
-  HomeIcon,
-  ResumeIcon as ScreeningIcon,
-  ReaderIcon as ReportIcon,
-  PersonIcon as EmployeeIcon,
-  HeartIcon,
-} from "@radix-ui/react-icons";
-import { fetchQuery } from "convex/nextjs";
+import { Navbar } from "@/components/navbar";
+import { HeartIcon } from "@radix-ui/react-icons";
 
 import Link from "next/link";
 import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
 
-const links = [
-  { href: "/", label: "Home", icon: <HomeIcon /> },
-  { href: "/screenings", label: "Screenings", icon: <ScreeningIcon /> },
-  { href: "/reports", label: "Reports", icon: <ReportIcon /> },
-  { href: "/employees", label: "Employees", icon: <EmployeeIcon /> },
-];
-
-const Navbar = () => {
-  return (
-    <NavigationMenu>
-      <NavigationMenuList className="gap-8">
-        {links.map((link) => {
-          return (
-            <NavigationMenuItem key={link.href}>
-              <Link href={link.href} legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={cn(navigationMenuTriggerStyle(), "gap-2")}
-                >
-                  {link.icon}
-                  {link.label}
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          );
-        })}
-      </NavigationMenuList>
-    </NavigationMenu>
-  );
-};
+import { fetchQuery } from "convex/nextjs";
+import { api } from "@/convex/_generated/api";
+import { convexAuthNextjsToken } from "@convex-dev/auth/nextjs/server";
 
 const Logo = () => {
   return (
