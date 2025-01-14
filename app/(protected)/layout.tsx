@@ -14,6 +14,7 @@ import {
   ResumeIcon as ScreeningIcon,
   ReaderIcon as ReportIcon,
   PersonIcon as EmployeeIcon,
+  HeartIcon,
 } from "@radix-ui/react-icons";
 import { fetchQuery } from "convex/nextjs";
 
@@ -74,7 +75,7 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <header className="container mx-auto py-8 flex items-center justify-between">
         <Logo />
         <Navbar />
@@ -89,8 +90,11 @@ export default function ProtectedLayout({
           <UserData />
         </Suspense>
       </header>
-      <div>{children}</div>
-      <footer></footer>
-    </>
+      <div className="container mx-auto flex-1">{children}</div>
+      <footer className="bg-muted text-center h-44 flex items-center justify-center gap-1">
+        <p>Created for Trondheim Kino by a fellow movie lover</p>
+        <HeartIcon className="size-5" />
+      </footer>
+    </div>
   );
 }
