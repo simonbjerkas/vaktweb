@@ -83,12 +83,13 @@ export const TextEditor = ({
 
 export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
   if (!editor) return null;
+
   return (
     <ul className="flex items-center gap-2">
       <li>
         <Button
           size="icon"
-          variant="outline"
+          variant={editor.isActive("bold") ? "secondary" : "outline"}
           aria-label="Toggle bold font."
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
@@ -98,7 +99,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
       <li>
         <Button
           size="icon"
-          variant="outline"
+          variant={editor.isActive("italic") ? "secondary" : "outline"}
           aria-label="Toggle italic font."
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
@@ -108,7 +109,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
       <li>
         <Button
           size="icon"
-          variant="outline"
+          variant={editor.isActive("underline") ? "secondary" : "outline"}
           aria-label="Toggle underline font."
           onClick={() => editor.chain().focus().toggleUnderline().run()}
         >
@@ -121,7 +122,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
       <li>
         <Button
           size="icon"
-          variant="outline"
+          variant={editor.isActive("highlight") ? "secondary" : "outline"}
           aria-label="Toggle highlight font."
           onClick={() => editor.chain().focus().toggleHighlight().run()}
         >
