@@ -13,10 +13,15 @@ export default defineSchema({
     phoneVerificationTime: v.optional(v.number()),
     address: v.optional(v.string()),
     city: v.optional(v.string()),
-    zip: v.optional(v.string()),
+    zip: v.optional(v.number()),
     dob: v.optional(v.string()),
     role: v.optional(
-      v.union(v.literal("admin"), v.literal("moderator"), v.literal("user")),
+      v.union(
+        v.literal("admin"),
+        v.literal("moderator"),
+        v.literal("user"),
+        v.literal("new"),
+      ),
     ),
   })
     .index("email", ["email"])

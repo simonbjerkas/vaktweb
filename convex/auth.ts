@@ -4,4 +4,11 @@ import { convexAuth } from "@convex-dev/auth/server";
 
 export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
   providers: [GitHub, Resend],
+  callbacks: {
+    createOrUpdateUser(ctx) {
+      return ctx.db.insert("users", {
+        role: "new",
+      });
+    },
+  },
 });

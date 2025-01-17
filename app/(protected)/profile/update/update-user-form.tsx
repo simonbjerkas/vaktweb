@@ -12,8 +12,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import { api } from "@/convex/_generated/api";
+import { Doc } from "@/convex/_generated/dataModel";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { startOfDay } from "date-fns";
+import { useMutation } from "convex/react";
+import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -30,26 +34,34 @@ const updateUserSchema = z.object({
   phone: z.string().min(1),
   address: z.string().min(1),
   city: z.string().min(1),
-  zip: z.number().min(1000).max(9999),
+  zip: z.coerce.number().min(1000).max(9999),
   dob: z.date().min(minDate).max(today),
 });
 
-export default function UpdateUserForm() {
+export default function UpdateUserForm({ user }: { user: Doc<"users"> }) {
+  const updateUser = useMutation(api.users.updateUser);
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof updateUserSchema>>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
-      city: "",
-      zip: 0,
-      dob: startOfDay(new Date()),
+      name: user.name ?? "",
+      email: user.email ?? "",
+      phone: user.phone ?? "",
+      address: user.address ?? "",
+      city: user.city ?? "",
+      zip: user.zip ?? 0,
+      dob: user.dob ? new Date(user.dob) : undefined,
     },
   });
 
-  function onSubmit(values: z.infer<typeof updateUserSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof updateUserSchema>) {
+    await updateUser({ ...values, dob: values.dob.toISOString() }).then(() => {
+      toast({
+        title: "User updated",
+        description: "Your user has been updated",
+      });
+      redirect("/profile");
+    });
   }
 
   return (
@@ -95,7 +107,7 @@ export default function UpdateUserForm() {
             <FormItem>
               <FormLabel>Phone</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input type="tel" {...field} />
               </FormControl>
               <FormDescription>
                 This is your phone number. It will be used to send you
@@ -144,7 +156,7 @@ export default function UpdateUserForm() {
             <FormItem>
               <FormLabel>Zip</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input type="number" {...field} />
               </FormControl>
               <FormDescription>
                 This is your zip code. It will be used to send you

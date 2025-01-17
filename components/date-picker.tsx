@@ -28,7 +28,7 @@ export const DatePicker = ({
   value,
   onChange,
   placeholder = "Pick a date",
-  time = true,
+  time = false,
 }: DatePickerProps) => {
   const [date, setDate] = useState<Date | undefined>(value);
 
@@ -55,7 +55,11 @@ export const DatePicker = ({
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {(value ?? date) ? (
-              format((value ?? date) as Date, `PPP ${time && "HH:mm"}`)
+              time ? (
+                format((value ?? date) as Date, "PPP HH:mm")
+              ) : (
+                format((value ?? date) as Date, "PPP")
+              )
             ) : (
               <span>{placeholder}</span>
             )}
