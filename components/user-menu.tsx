@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { PersonIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 import { ReactNode } from "react";
 
 export function UserMenu({ children }: { children: ReactNode }) {
@@ -26,7 +27,9 @@ export function UserMenu({ children }: { children: ReactNode }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>{children}</DropdownMenuLabel>
+          <Link href="/profile">
+            <DropdownMenuLabel>{children}</DropdownMenuLabel>
+          </Link>
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="flex items-center gap-2 py-0 font-normal">
             Theme
