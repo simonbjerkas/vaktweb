@@ -26,7 +26,7 @@ export default defineSchema({
   })
     .index("email", ["email"])
     .index("phone", ["phone"]),
-  centers: defineTable({
+  locations: defineTable({
     name: v.string(),
     address: v.string(),
     city: v.string(),
@@ -34,12 +34,12 @@ export default defineSchema({
   }),
   halls: defineTable({
     name: v.string(),
-    center: v.id("centers"),
+    location: v.id("locations"),
     capacity: v.number(),
   }),
   shifts: defineTable({
     employee: v.id("users"),
-    center: v.id("centers"),
+    location: v.id("locations"),
     date: v.string(),
     start_time: v.string(),
     end_time: v.string(),
@@ -53,14 +53,14 @@ export default defineSchema({
   }),
   news: defineTable({
     author: v.id("users"),
-    centers: v.array(v.id("centers")),
+    locations: v.array(v.id("locations")),
     title: v.string(),
     body: v.string(),
     comment: v.array(v.id("comment")),
   }),
   reports: defineTable({
     author: v.id("users"),
-    centers: v.array(v.id("centers")),
+    locations: v.array(v.id("locations")),
     body: v.string(),
     status: v.union(
       v.literal("pending"),
