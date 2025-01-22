@@ -51,9 +51,16 @@ export default defineSchema({
     parent: v.optional(v.union(v.id("comment"), v.id("news"), v.id("reports"))),
     children: v.array(v.id("comment")),
   }),
+  tags: defineTable({
+    name: v.string(),
+    type: v.union(v.literal("report"), v.literal("news"), v.literal("all")),
+  })
+    .index("by_name", ["name"])
+    .index("by_type", ["type"]),
   news: defineTable({
     author: v.id("users"),
     locations: v.array(v.id("locations")),
+    tags: v.array(v.id("tags")),
     title: v.string(),
     body: v.string(),
     comment: v.array(v.id("comment")),
@@ -61,6 +68,7 @@ export default defineSchema({
   reports: defineTable({
     author: v.id("users"),
     locations: v.array(v.id("locations")),
+    tags: v.array(v.id("tags")),
     body: v.string(),
     status: v.union(
       v.literal("pending"),

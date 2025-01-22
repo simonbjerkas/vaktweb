@@ -1,18 +1,11 @@
 "use client";
 
-import { TextEditor } from "@/components/text-editor";
-import { useState } from "react";
+import NewReportForm from "./new-report-form";
 
 export default function Reports() {
-  const [value, setValue] = useState("");
-
   return (
     <div>
-      <TextEditor
-        menubar
-        value={value}
-        onChange={(value) => setValue(value.toString())}
-      />
+      <NewReportForm />
     </div>
   );
 }
