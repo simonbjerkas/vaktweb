@@ -16,7 +16,7 @@ export default convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
   if (!isSignInPage && !(await convexAuth.isAuthenticated())) {
     return nextjsMiddlewareRedirect(request, "/signin");
   }
-  if (isAdminRoute(request)) {
+  if (isAdminRoute(request) && (await convexAuth.isAuthenticated())) {
     const user = await fetchQuery(
       api.users.viewer,
       {},
