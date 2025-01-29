@@ -24,7 +24,7 @@ const UserData = async () => {
     {},
     { token: await convexAuthNextjsToken() },
   );
-  return <UserMenu>{user.name}</UserMenu>;
+  return <UserMenu user={user} />;
 };
 
 export default function ProtectedLayout({

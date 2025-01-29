@@ -23,10 +23,11 @@ import {
 } from "@/components/ui/select";
 import { TextEditor } from "@/components/text-editor";
 import { api } from "@/convex/_generated/api";
-import { useQuery } from "convex/react";
-import { useMemo } from "react";
-import { Doc } from "@/convex/_generated/dataModel";
+import { useMutation, useQuery } from "convex/react";
+import { useEffect, useMemo } from "react";
+import { Doc, Id } from "@/convex/_generated/dataModel";
 import { Combobox } from "@/components/combobox";
+import { ToastAction } from "@/components/ui/toast";
 
 const newReportSchema = z.object({
   body: z.string().min(1, "Report content is required"),
@@ -41,6 +42,8 @@ export default function NewReportForm() {
   const locations = useQuery(api.locations.getLocations);
   const halls = useQuery(api.halls.getAllHalls);
   const tags = useQuery(api.tags.getTagByType, { type: "report" }) ?? [];
+
+  const createReport = useMutation(api.reports.createReport);
 
   const { toast } = useToast();
 
@@ -57,6 +60,7 @@ export default function NewReportForm() {
 
     return map;
   }, [locations, halls]);
+
   const form = useForm<FormData>({
     resolver: zodResolver(newReportSchema),
     defaultValues: {
@@ -67,12 +71,33 @@ export default function NewReportForm() {
     },
   });
 
+  const locationId = form.watch("locationId");
+
+  useEffect(() => {
+    form.setValue("hallId", "");
+  }, [locationId, form]);
+
   async function onSubmit(values: FormData) {
-    console.log(values);
-    toast({
-      title: "Report submitted",
-      description: "Your report has been submitted successfully",
-    });
+    await createReport({
+      locationId: values.locationId as Id<"locations">,
+      hallId: values.hallId as Id<"halls">,
+      tags: values.tags as Id<"tags">[],
+      body: values.body,
+    })
+      .catch((error) => {
+        toast({
+          title: "Error",
+          variant: "destructive",
+          description: error.message,
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+      })
+      .then(() => {
+        toast({
+          title: "Report submitted",
+          description: "Your report has been submitted successfully",
+        });
+      });
   }
 
   return (
@@ -88,6 +113,7 @@ export default function NewReportForm() {
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
+                  value={field.value}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -119,6 +145,7 @@ export default function NewReportForm() {
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
+                  value={field.value}
                 >
                   <FormControl>
                     <SelectTrigger>
@@ -126,11 +153,13 @@ export default function NewReportForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {hallsByLocation?.get(field.value ?? "")?.map((hall) => (
-                      <SelectItem key={hall._id} value={hall._id}>
-                        {hall.name}
-                      </SelectItem>
-                    ))}
+                    {hallsByLocation
+                      ?.get(form.getValues("locationId") ?? "")
+                      ?.map((hall) => (
+                        <SelectItem key={hall._id} value={hall._id}>
+                          {hall.name}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
                 <FormDescription>

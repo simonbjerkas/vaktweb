@@ -13,7 +13,7 @@ export default async function ProductPage() {
   return (
     <main className="flex max-h-screen grow flex-col overflow-hidden">
       <div className="flex items-start justify-between border-b p-4">
-        <UserMenu>{viewer.name}</UserMenu>
+        <UserMenu user={viewer} />
       </div>
       <Chat viewer={viewer._id} />
     </main>

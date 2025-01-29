@@ -1,18 +1,19 @@
 import { v } from "convex/values";
-import { query } from "./_generated/server";
-
-export const getHallsByLocation = query({
-  args: { locationId: v.id("locations") },
-  handler: async (ctx, { locationId }) => {
-    return ctx.db
-      .query("halls")
-      .filter((q) => q.eq(q.field("location"), locationId))
-      .collect();
-  },
-});
+import { mutation, query } from "./_generated/server";
 
 export const getAllHalls = query({
   handler: async (ctx) => {
     return ctx.db.query("halls").collect();
+  },
+});
+
+export const createHall = mutation({
+  args: {
+    name: v.string(),
+    location: v.id("locations"),
+    capacity: v.number(),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.insert("halls", args);
   },
 });

@@ -1,11 +1,30 @@
 "use client";
 
-import NewReportForm from "./new-report-form";
+import { usePaginatedQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { ReportCard } from "./report-card";
+import { Button } from "@/components/ui/button";
 
 export default function Reports() {
+  const { results, status, loadMore } = usePaginatedQuery(
+    api.reports.getReports,
+    {},
+    { initialNumItems: 10 },
+  );
   return (
-    <div>
-      <NewReportForm />
-    </div>
+    <>
+      <div className="flex flex-col gap-4">
+        {results?.map((report) => (
+          <ReportCard key={report._id} report={report} />
+        ))}
+      </div>
+      <Button
+        className="w-full"
+        onClick={() => loadMore(10)}
+        disabled={status !== "CanLoadMore"}
+      >
+        Load more
+      </Button>
+    </>
   );
 }

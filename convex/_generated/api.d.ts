@@ -17,6 +17,7 @@ import type * as auth from "../auth.js";
 import type * as halls from "../halls.js";
 import type * as http from "../http.js";
 import type * as locations from "../locations.js";
+import type * as reports from "../reports.js";
 import type * as tags from "../tags.js";
 import type * as users from "../users.js";
 
@@ -33,6 +34,7 @@ declare const fullApi: ApiFromModules<{
   halls: typeof halls;
   http: typeof http;
   locations: typeof locations;
+  reports: typeof reports;
   tags: typeof tags;
   users: typeof users;
 }>;

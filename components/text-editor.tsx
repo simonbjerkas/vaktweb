@@ -22,6 +22,15 @@ import { HighlighterIcon } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useState } from "react";
 
+export const editorContentStyle = cn(
+  "prose dark:prose-invert prose-sm",
+  "prose-h1:text-xl prose-h1:pb-2 prose-h1:font-bold",
+  "prose-h2:text-lg prose-h2:pb-1 prose-h2:font-bold",
+  "prose-h3:text-md prose-h3:font-bold",
+  "focus:outline-none min-w-full overflow-y-auto",
+  "[&>*]:!m-0 [&_*]:!m-0",
+);
+
 export const TextEditor = ({
   className,
   placeholder,
@@ -59,8 +68,7 @@ export const TextEditor = ({
     },
     editorProps: {
       attributes: {
-        class:
-          "prose dark:prose-invert prose-sm [&>*]:!m-0 [&_*]:!m-0 focus:outline-none min-h-48 min-w-full overflow-y-auto prose-h1:text-xl prose-h1:pb-2 prose-h2:text-lg prose-h2:pb-1 prose-h3:text-md prose-h1:font-bold prose-h2:font-bold prose-h3:font-bold",
+        class: cn(editorContentStyle, "min-h-48"),
       },
     },
   });

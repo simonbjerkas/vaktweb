@@ -10,15 +10,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Doc } from "@/convex/_generated/dataModel";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { PersonIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { ReactNode } from "react";
 
-export function UserMenu({ children }: { children: ReactNode }) {
+export function UserMenu({ user }: { user: Doc<"users"> }) {
   return (
     <div className="flex items-center gap-2 text-sm font-medium">
-      {children}
+      {user.name}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="icon" className="rounded-full">
@@ -28,8 +28,13 @@ export function UserMenu({ children }: { children: ReactNode }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <Link href="/profile">
-            <DropdownMenuLabel>{children}</DropdownMenuLabel>
+            <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
           </Link>
+          {user.role === "admin" && (
+            <DropdownMenuItem>
+              <Link href="/profile/admin">Admin</Link>
+            </DropdownMenuItem>
+          )}
           <DropdownMenuSeparator />
           <DropdownMenuLabel className="flex items-center gap-2 py-0 font-normal">
             Theme
