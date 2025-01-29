@@ -60,7 +60,7 @@ export default defineSchema({
   news: defineTable({
     author: v.id("users"),
     locations: v.array(v.id("locations")),
-    tags: v.array(v.id("tags")),
+    tags: v.optional(v.array(v.id("tags"))),
     title: v.string(),
     body: v.string(),
     comment: v.array(v.id("comment")),
@@ -68,7 +68,8 @@ export default defineSchema({
   reports: defineTable({
     author: v.id("users"),
     locations: v.array(v.id("locations")),
-    tags: v.array(v.id("tags")),
+    hall: v.id("halls"),
+    tags: v.optional(v.array(v.id("tags"))),
     body: v.string(),
     status: v.union(
       v.literal("pending"),
@@ -77,6 +78,10 @@ export default defineSchema({
     ),
     comment: v.array(v.id("comment")),
   }),
+  reports_locations: defineTable({
+    report: v.id("reports"),
+    location: v.id("locations"),
+  }).index("by_location", ["location"]),
   films: defineTable({
     title: v.string(),
     length: v.number(),
