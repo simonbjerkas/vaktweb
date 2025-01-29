@@ -85,7 +85,7 @@ export const Navbar = () => {
           </Button>
           <div
             className={cn(
-              "fixed inset-0 bg-linear-to-b from-background/40 to-background to-60% backdrop-blur-xs z-40",
+              "fixed inset-0 bg-gradient-to-b from-background/40 to-background to-60% backdrop-blur-sm z-40",
               isOpen
                 ? "opacity-100 translate-y-0 duration-300"
                 : "opacity-0 -translate-y-full duration-100 pointer-events-none aria-hidden",

@@ -27,8 +27,8 @@ export const editorContentStyle = cn(
   "prose-h1:text-xl prose-h1:pb-2 prose-h1:font-bold",
   "prose-h2:text-lg prose-h2:pb-1 prose-h2:font-bold",
   "prose-h3:text-md prose-h3:font-bold",
-  "focus:outline-hidden min-w-full overflow-y-auto",
-  "*:m-0! **:m-0!",
+  "focus:outline-none min-w-full overflow-y-auto",
+  "[&>*]:!m-0 [&_*]:!m-0",
 );
 
 export const TextEditor = ({
@@ -78,7 +78,7 @@ export const TextEditor = ({
       {menubar && editor && <TextEditorMenu editor={editor} />}
       <div
         className={cn(
-          "flex rounded-md border border-input bg-background px-3 py-2 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+          "flex rounded-md border border-input bg-background px-3 py-2 ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
           className,
         )}
         {...props}
