@@ -9,7 +9,8 @@
     "predev": "convex dev --until-success && node setup.mjs --once && convex dashboard",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@auth/core": "^0.37.4",
