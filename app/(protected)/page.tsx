@@ -1,5 +1,6 @@
 import { EventCalendar } from "@/components/event-calendar";
 import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 import { convexAuthNextjsToken } from "@convex-dev/auth/nextjs/server";
 import { fetchQuery } from "convex/nextjs";
 import { addDays, addHours } from "date-fns";
@@ -15,7 +16,7 @@ const events = Array.from({ length: 10000 }, (_, index) => ({
   end: addDays(end, index),
   summary: `Event ${index}`,
   description: `Description for Event ${index}`,
-  location: "123 Main St, Anytown, USA",
+  location: "123 Main St, Anytown, USA" as Id<"locations">,
 }));
 
 export default async function Home() {
