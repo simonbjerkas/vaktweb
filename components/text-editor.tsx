@@ -96,6 +96,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
     <ul className="flex items-center gap-2">
       <li>
         <Button
+          type="button"
           size="icon"
           variant={editor.isActive("bold") ? "secondary" : "outline"}
           aria-label="Toggle bold font."
@@ -106,6 +107,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
       </li>
       <li>
         <Button
+          type="button"
           size="icon"
           variant={editor.isActive("italic") ? "secondary" : "outline"}
           aria-label="Toggle italic font."
@@ -116,6 +118,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
       </li>
       <li>
         <Button
+          type="button"
           size="icon"
           variant={editor.isActive("underline") ? "secondary" : "outline"}
           aria-label="Toggle underline font."
@@ -129,6 +132,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
       </li>
       <li>
         <Button
+          type="button"
           size="icon"
           variant={editor.isActive("highlight") ? "secondary" : "outline"}
           aria-label="Toggle highlight font."
@@ -221,6 +225,7 @@ const ColorButton = ({ editor }: { editor: Editor }) => {
             </li>
           </ul>
           <Button
+            type="button"
             variant="secondary"
             className="w-full justify-start gap-2 text-sm transition-transform hover:scale-x-105"
             onClick={() => editor.chain().focus().unsetColor().run()}
