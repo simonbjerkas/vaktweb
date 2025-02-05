@@ -8,5 +8,5 @@ export default async function ProfilePage() {
     {},
     { token: await convexAuthNextjsToken() },
   );
-  return <div>{user.name}</div>;
+  return <div>{JSON.stringify(user)}</div>;
 }
