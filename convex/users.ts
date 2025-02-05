@@ -1,6 +1,7 @@
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { filter } from "convex-helpers/server/filter";
 
 export const viewer = query({
   args: {},
@@ -43,5 +44,19 @@ export const updateUser = mutation({
       dob: args.dob,
       role: "user",
     });
+  },
+});
+
+export const getUsersByLocation = query({
+  args: {
+    locationId: v.optional(v.id("locations")),
+  },
+  handler: async (ctx, { locationId }) => {
+    if (locationId) {
+      return await filter(
+        ctx.db.query("users"),
+        (user) => user.locations?.includes(locationId) ?? false,
+      ).collect();
+    }
   },
 });

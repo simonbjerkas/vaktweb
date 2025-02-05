@@ -126,7 +126,7 @@ export default function NewReportForm() {
                       </FormControl>
                       <SelectContent>
                         {locations?.map((location) => (
-                          <SelectItem key={location.id} value={location.id}>
+                          <SelectItem key={location._id} value={location._id}>
                             {location.name}
                           </SelectItem>
                         ))}

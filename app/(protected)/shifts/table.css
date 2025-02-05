@@ -1,0 +1,87 @@
+.ag-theme-alpine {
+  @apply bg-background text-foreground;
+
+  /* Base styles */
+  --ag-background-color: transparent;
+  --ag-foreground-color: currentColor;
+  --ag-border-color: hsl(var(--border));
+  --ag-header-background-color: hsl(var(--muted));
+  --ag-row-border-color: hsl(var(--border));
+  --ag-header-foreground-color: hsl(var(--muted-foreground));
+  --ag-disabled-foreground-color: hsl(var(--muted-foreground));
+  --ag-font-family: inherit;
+  --ag-font-size: 0.875rem;
+
+  /* Spacing */
+  --ag-grid-size: 4px;
+  --ag-list-item-height: 2.5rem;
+
+  /* Borders */
+  --ag-borders: solid 1px;
+  --ag-border-radius: calc(var(--radius) - 2px);
+  --ag-row-border-style: solid;
+  --ag-row-border-width: 1px;
+
+  /* Row height */
+  --ag-row-height: 3rem;
+  --ag-header-height: 3.5rem;
+
+  /* Center header content */
+  .ag-header-cell-label {
+    @apply flex items-center;
+  }
+
+  /* Ensure cell content takes full height */
+  .ag-cell {
+    @apply h-full flex items-center;
+  }
+
+  /* Make last column take maximum space */
+  .ag-cell:last-child {
+    @apply flex-1;
+  }
+
+  /* Center cell content */
+  .ag-cell-value {
+    @apply h-full w-full flex items-center;
+  }
+}
+
+/* Header Styles */
+.ag-theme-alpine .ag-header {
+  @apply border-b border-border;
+}
+
+.ag-theme-alpine .ag-header-cell {
+  @apply text-muted-foreground font-medium;
+}
+
+/* Row Styles */
+.ag-theme-alpine .ag-row {
+  @apply border-b border-border transition-colors;
+}
+
+.ag-theme-alpine .ag-row-odd {
+  @apply bg-muted/50;
+}
+
+.ag-theme-alpine .ag-row:hover {
+  @apply bg-accent;
+}
+
+/* Cell Styles */
+.ag-theme-alpine .ag-cell {
+  @apply px-4 py-2;
+}
+
+/* Selected state */
+.ag-theme-alpine .ag-row-selected {
+  @apply bg-accent;
+}
+
+/* Dark mode support */
+.dark .ag-theme-alpine {
+  --ag-background-color: transparent;
+  --ag-header-background-color: hsl(var(--muted));
+  --ag-odd-row-background-color: hsl(var(--muted));
+}

@@ -18,6 +18,7 @@ import { Label } from "./ui/label";
 import { Separator } from "./ui/separator";
 
 type DatePickerProps = {
+  className?: string;
   value?: Date;
   onChange?: (date: Date | undefined) => void;
   placeholder?: string;
@@ -25,6 +26,7 @@ type DatePickerProps = {
 };
 
 export const DatePicker = ({
+  className,
   value,
   onChange,
   placeholder = "Pick a date",
@@ -51,6 +53,7 @@ export const DatePicker = ({
             className={cn(
               "min-w-56 justify-start text-left font-normal",
               !(value ?? date) && "text-muted-foreground",
+              className,
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -129,6 +132,7 @@ function getValidNumber(
   { max, min = 0, loop = false }: GetValidNumberConfig,
 ) {
   let numericValue = parseInt(value, 10);
+  const stepOffset = numericValue + 1;
 
   if (!isNaN(numericValue)) {
     if (!loop) {
@@ -136,7 +140,7 @@ function getValidNumber(
       if (numericValue < min) numericValue = min;
     } else {
       if (numericValue > max) numericValue = min;
-      if (numericValue < min) numericValue = max;
+      if (numericValue < min) numericValue = max + stepOffset;
     }
     return numericValue.toString().padStart(2, "0");
   }
@@ -234,6 +238,7 @@ interface TimePickerInputProps
   setDate: (date: Date | undefined) => void;
   onRightFocus?: () => void;
   onLeftFocus?: () => void;
+  step?: number;
 }
 
 const TimePickerInput = ({
@@ -249,6 +254,7 @@ const TimePickerInput = ({
   picker,
   onLeftFocus,
   onRightFocus,
+  step = 1,
   ...props
 }: TimePickerInputProps) => {
   const [flag, setFlag] = useState<boolean>(false);
@@ -281,10 +287,15 @@ const TimePickerInput = ({
     if (e.key === "ArrowRight") onRightFocus?.();
     if (e.key === "ArrowLeft") onLeftFocus?.();
     if (["ArrowUp", "ArrowDown"].includes(e.key)) {
-      const step = e.key === "ArrowUp" ? 1 : -1;
-      const newValue = getArrowByType(calculatedValue, step, picker);
+      const increment = e.key === "ArrowUp" ? 1 : -1;
+      const newValue = getArrowByType(
+        calculatedValue,
+        increment * step,
+        picker,
+      );
       if (flag) setFlag(false);
       const tempDate = new Date(date);
+      console.log(newValue);
       setDate(setDateByType(tempDate, newValue, picker));
     }
     if (e.key >= "0" && e.key <= "9") {

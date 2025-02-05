@@ -15,6 +15,7 @@ export default defineSchema({
     city: v.optional(v.string()),
     zip: v.optional(v.number()),
     dob: v.optional(v.string()),
+    locations: v.optional(v.array(v.id("locations"))),
     role: v.union(
       v.literal("admin"),
       v.literal("moderator"),
@@ -38,11 +39,12 @@ export default defineSchema({
   shifts: defineTable({
     employee: v.id("users"),
     location: v.id("locations"),
-    date: v.string(),
-    start_time: v.string(),
-    end_time: v.string(),
+    role: v.union(v.literal("leader"), v.literal("host")),
+    day: v.string(),
+    start: v.string(),
+    end: v.string(),
     note: v.optional(v.string()),
-  }),
+  }).index("by_day", ["day"]),
   comment: defineTable({
     author: v.id("users"),
     body: v.string(),
