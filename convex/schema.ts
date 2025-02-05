@@ -78,10 +78,6 @@ export default defineSchema({
     ),
     comment: v.array(v.id("comment")),
   }),
-  reports_locations: defineTable({
-    report: v.id("reports"),
-    location: v.id("locations"),
-  }).index("by_location", ["location"]),
   films: defineTable({
     title: v.string(),
     length: v.number(),

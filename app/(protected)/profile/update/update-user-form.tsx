@@ -52,13 +52,15 @@ export default function UpdateUserForm({ user }: { user: Doc<"users"> }) {
   });
 
   async function onSubmit(values: z.infer<typeof updateUserSchema>) {
-    await updateUser({ ...values, dob: values.dob.toISOString() }).then(() => {
-      toast({
-        title: "User updated",
-        description: "Your user has been updated",
-      });
-      redirect("/profile");
-    });
+    await updateUser({ ...values, dob: values.dob.toISOString() }).then(
+      async () => {
+        toast({
+          title: "User updated",
+          description: "Your user has been updated",
+        });
+        redirect("/profile");
+      },
+    );
   }
 
   return (

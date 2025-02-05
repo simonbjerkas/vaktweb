@@ -49,7 +49,7 @@ export const DatePicker = ({
           <Button
             variant="outline"
             className={cn(
-              "w-fit justify-start text-left font-normal",
+              "min-w-56 justify-start text-left font-normal",
               !(value ?? date) && "text-muted-foreground",
             )}
           >

@@ -21,7 +21,7 @@ export const createReport = mutation({
       allowedAttributes: {},
     });
 
-    const reportId = await ctx.db.insert("reports", {
+    await ctx.db.insert("reports", {
       author: user,
       locations: [args.locationId],
       hall: args.hallId,
@@ -29,10 +29,6 @@ export const createReport = mutation({
       status: "pending",
       body: sanitizedBody,
       comment: [],
-    });
-    await ctx.db.insert("reports_locations", {
-      report: reportId,
-      location: args.locationId,
     });
   },
 });

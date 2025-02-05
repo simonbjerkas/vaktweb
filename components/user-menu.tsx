@@ -10,12 +10,26 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Doc } from "@/convex/_generated/dataModel";
+import { api } from "@/convex/_generated/api";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { PersonIcon } from "@radix-ui/react-icons";
+import { useQuery } from "convex/react";
 import Link from "next/link";
+import { Skeleton } from "./ui/skeleton";
 
-export function UserMenu({ user }: { user: Doc<"users"> }) {
+export function UserMenu() {
+  const user = useQuery(api.users.viewer);
+
+  if (user?.role === "new") return <>Welcome!</>;
+
+  if (!user)
+    return (
+      <div className="flex items-center gap-2">
+        <Skeleton className="w-24 h-5" />
+        <Skeleton className="size-9 rounded-full" />
+      </div>
+    );
+
   return (
     <div className="flex items-center gap-2 text-sm font-medium">
       {user.name}

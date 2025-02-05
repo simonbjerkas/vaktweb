@@ -6,6 +6,7 @@ export const viewer = query({
   args: {},
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
+    console.log(userId);
     if (userId === null) {
       throw new Error("Not signed in");
     }
