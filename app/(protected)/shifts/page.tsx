@@ -1,3 +1,3 @@
 export default function ShiftsPage() {
-  return <div>Test</div>;
+  return <div>Second test</div>;
 }
