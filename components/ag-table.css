@@ -85,3 +85,7 @@
   --ag-header-background-color: hsl(var(--muted));
   --ag-odd-row-background-color: hsl(var(--muted));
 }
+
+.clickable-table .ag-row {
+  @apply cursor-pointer;
+}

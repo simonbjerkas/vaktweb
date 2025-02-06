@@ -1,14 +1,11 @@
 "use client";
 
-import "./table.css";
-
-import { AgGridReact } from "ag-grid-react";
-import { ClientSideRowModelModule, ColDef } from "ag-grid-community";
+import { ColDef } from "ag-grid-community";
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useMemo } from "react";
 import { differenceInMinutes } from "date-fns";
-
+import { AgTable } from "@/components/ag-table";
 type RowData = {
   name: string;
   role: "leader" | "host";
@@ -52,21 +49,5 @@ export const ShiftTable = ({
     { field: "note", headerName: "Note", flex: 2 },
   ];
 
-  return (
-    <div className="w-full ag-theme-alpine">
-      <AgGridReact
-        rowData={rowData}
-        columnDefs={colDefs}
-        modules={[ClientSideRowModelModule]}
-        domLayout="autoHeight"
-        defaultColDef={{
-          resizable: true,
-          sortable: true,
-          filter: true,
-          flex: 1,
-        }}
-        suppressCellFocus
-      />
-    </div>
-  );
+  return <AgTable rowData={rowData} colDefs={colDefs} />;
 };

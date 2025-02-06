@@ -60,3 +60,21 @@ export const getUsersByLocation = query({
     }
   },
 });
+
+export const getAllUsers = query({
+  args: {},
+  handler: async (ctx) => {
+    const users = await ctx.db.query("users").collect();
+    return Promise.all(
+      users.map(async (user) => ({
+        ...user,
+        locations: await Promise.all(
+          user.locations?.map(async (locationId) => {
+            const location = await ctx.db.get(locationId);
+            return location?.name;
+          }) ?? [],
+        ),
+      })),
+    );
+  },
+});
