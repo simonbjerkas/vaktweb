@@ -11,8 +11,8 @@ export default async function ShiftsPage() {
   return (
     <div className="flex flex-col gap-4">
       <AddShiftForm />
-      <ShiftTimeline preloadedShifts={preloadedShifts} />
       <ShiftTable preloadedShifts={preloadedShifts} />
+      <ShiftTimeline preloadedShifts={preloadedShifts} />
     </div>
   );
 }

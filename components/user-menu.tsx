@@ -38,7 +38,7 @@ export function UserMenu({
           </Link>
           {user.role === "admin" && (
             <DropdownMenuItem>
-              <Link href="/profile/admin">Admin</Link>
+              <Link href="/admin">Admin</Link>
             </DropdownMenuItem>
           )}
           <DropdownMenuSeparator />
