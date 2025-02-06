@@ -22,7 +22,7 @@ import {
 } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { useIsMobile } from "@/hooks/useIsMobile";
+import { useIsMobile } from "@/hooks/use-is-mobile";
 
 const links = [
   {
