@@ -27,7 +27,11 @@ export function UserMenu({
       {user.name}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="secondary" size="icon" className="rounded-full">
+          <Button
+            variant="secondary"
+            size="icon"
+            className="rounded-full mr-8 lg:mr-0"
+          >
             <PersonIcon className="h-5 w-5" />
             <span className="sr-only">Toggle user menu</span>
           </Button>

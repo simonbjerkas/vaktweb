@@ -34,8 +34,14 @@ const UserData = async () => {
 
 export default function ProtectedLayout({
   children,
+  upcoming,
+  latest,
+  weekly,
 }: {
   children: React.ReactNode;
+  upcoming: React.ReactNode;
+  latest: React.ReactNode;
+  weekly: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col min-h-screen">
@@ -53,7 +59,18 @@ export default function ProtectedLayout({
           <UserData />
         </Suspense>
       </header>
-      <div className="container mx-auto flex-1">{children}</div>
+      <div className="container mx-auto flex-1">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="col-span-2 lg:col-span-1 lg:row-span-2 flex flex-col md:flex-row lg:flex-col gap-4">
+            <div className="flex-1">{latest}</div>
+            <div className="flex-1">{weekly}</div>
+          </div>
+          <div className="col-span-2 lg:col-span-1 lg:row-span-2">
+            {upcoming}
+          </div>
+          <div className="col-span-2">{children}</div>
+        </div>
+      </div>
       <footer className="bg-muted text-center h-44 flex items-center justify-center gap-1">
         <p>Created for Trondheim Kino by a fellow movie lover</p>
         <HeartIcon className="size-5" />

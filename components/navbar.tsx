@@ -22,7 +22,7 @@ import {
 } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { useIsMobile } from "@/hooks/use-is-mobile";
+import { useScreenSize } from "@/hooks/use-screen-size";
 
 const links = [
   {
@@ -65,14 +65,17 @@ const links = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const isMobile = useIsMobile();
+  const screenSize = useScreenSize();
 
   return (
     <>
-      {isMobile ? (
+      {screenSize === "mobile" || screenSize === "tablet" ? (
         <>
           <Button
-            className="fixed bottom-4 right-4 z-50"
+            className={cn(
+              "fixed right-4 z-50",
+              screenSize === "mobile" && "bottom-4 right-4",
+            )}
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(!isOpen)}
