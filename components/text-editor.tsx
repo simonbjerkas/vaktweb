@@ -23,11 +23,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useState } from "react";
 
 export const editorContentStyle = cn(
-  "prose dark:prose-invert prose-sm",
+  "prose prose-sm",
   "prose-h1:text-xl prose-h1:pb-2 prose-h1:font-bold",
   "prose-h2:text-lg prose-h2:pb-1 prose-h2:font-bold",
   "prose-h3:text-md prose-h3:font-bold",
-  "focus:outline-none min-w-full overflow-y-auto",
+  "focus:outline-none min-w-full overflow-y-auto max-w-none",
   "[&>*]:!m-0 [&_*]:!m-0",
 );
 
