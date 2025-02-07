@@ -1,7 +1,9 @@
 import { EventCalendar } from "@/components/event-calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const Upcoming = async () => {
+export { default as Loading } from "./loading";
+
+export const Upcoming = async () => {
   return (
     <Card>
       <CardHeader>
@@ -13,5 +15,3 @@ const Upcoming = async () => {
     </Card>
   );
 };
-
-export default Upcoming;

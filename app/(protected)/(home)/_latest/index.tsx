@@ -1,6 +1,8 @@
 import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 
-const Latest = () => {
+export { default as Loading } from "./loading";
+
+export const Latest = () => {
   return (
     <Card className="h-full w-full">
       <CardHeader>
@@ -12,5 +14,3 @@ const Latest = () => {
     </Card>
   );
 };
-
-export default Latest;

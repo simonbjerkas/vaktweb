@@ -1,6 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-const Weekly = () => {
+
+export { default as Loading } from "./loading";
+
+export const Weekly = () => {
   return (
     <Card className="h-full w-full">
       <CardHeader>
@@ -14,5 +17,3 @@ const Weekly = () => {
     </Card>
   );
 };
-
-export default Weekly;
