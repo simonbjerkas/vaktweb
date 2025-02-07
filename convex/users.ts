@@ -7,13 +7,9 @@ export const viewer = query({
   args: {},
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
-    if (userId === null) {
-      throw new Error("Not signed in");
-    }
+    if (userId === null) return null;
     const user = await ctx.db.get(userId);
-    if (user === null) {
-      throw new Error("User was deleted");
-    }
+    if (user === null) return null;
     return user;
   },
 });
