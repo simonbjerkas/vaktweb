@@ -1,17 +1,8 @@
-import { fetchQuery } from "convex/nextjs";
-import UpdateUserForm from "./update-user-form";
-import { api } from "@/convex/_generated/api";
-import { convexAuthNextjsToken } from "@convex-dev/auth/nextjs/server";
-import { redirect } from "next/navigation";
+import { getAuthUser } from "@/lib/auth";
+import { UpdateUserForm } from "./update-user-form";
 
 export default async function UpdateProfilePage() {
-  const user = await fetchQuery(
-    api.users.viewer,
-    {},
-    { token: await convexAuthNextjsToken() },
-  ).catch(() => {
-    redirect("/signin");
-  });
+  const user = await getAuthUser();
   return (
     <div>
       <UpdateUserForm user={user} />

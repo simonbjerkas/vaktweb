@@ -35,7 +35,7 @@ const updateUserSchema = z.object({
   dob: z.date().min(minDate).max(today),
 });
 
-export default function UpdateUserForm({ user }: { user: Doc<"users"> }) {
+export function UpdateUserForm({ user }: { user: Doc<"users"> }) {
   const updateUser = useMutation(api.users.updateUser);
   const { toast } = useToast();
   const form = useForm<z.infer<typeof updateUserSchema>>({

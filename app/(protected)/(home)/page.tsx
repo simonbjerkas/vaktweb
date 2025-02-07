@@ -1,11 +1,5 @@
 import { Suspense } from "react";
-
-import { api } from "@/convex/_generated/api";
-import { convexAuthNextjsToken } from "@convex-dev/auth/nextjs/server";
-import { fetchQuery } from "convex/nextjs";
-
-import { redirect } from "next/navigation";
-
+import { requireRole } from "@/lib/auth";
 import {
   Latest,
   Loading as LatestLoading,
@@ -18,19 +12,10 @@ import {
   Upcoming,
   Loading as UpcomingLoading,
 } from "@/app/(protected)/(home)/_upcoming";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function Home() {
-  const user = await fetchQuery(
-    api.users.viewer,
-    {},
-    { token: await convexAuthNextjsToken() },
-  ).catch(() => {
-    redirect("/signin");
-  });
-
-  if (user.role === "new") redirect("/profile/update");
+  requireRole("user");
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className="col-span-2 lg:col-span-1 lg:row-span-2 flex flex-col md:flex-row lg:flex-col gap-4">

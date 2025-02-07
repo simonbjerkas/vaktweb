@@ -103,26 +103,26 @@ export const EmployeeTable = ({
   );
 };
 
-const ImageNameCell = (props: CustomCellRendererProps) => {
+const ImageNameCell = (props: CustomCellRendererProps<RowData>) => {
   return (
     <div className="flex items-center gap-2">
-      {props.data.image && (
+      {props.data?.image && (
         <img
           src={props.data.image}
           alt={props.data.name}
           className="size-8 rounded-full"
         />
       )}
-      <span>{props.data.name}</span>
+      <span>{props.data?.name}</span>
     </div>
   );
 };
 
-const ContactCell = (props: CustomCellRendererProps) => {
+const ContactCell = (props: CustomCellRendererProps<RowData>) => {
   return (
     <div className="flex items-center gap-2">
-      <span>{props.data.contact.email}</span>
-      <span>{props.data.contact.phone}</span>
+      <span>{props.data?.contact.email}</span>
+      <span>{props.data?.contact.phone}</span>
     </div>
   );
 };
