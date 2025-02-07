@@ -10,7 +10,7 @@ function PostHogPageView(): null {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const posthog = usePostHog();
-  const user = useQuery(api.users.viewer);
+  const user = useQuery(api.users.posthogUser);
 
   useEffect(() => {
     if (user) {

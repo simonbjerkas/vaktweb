@@ -4,11 +4,7 @@ import { useEffect } from "react";
 
 import posthog from "posthog-js";
 import { PostHogProvider as PHProvider } from "posthog-js/react";
-import dynamicLoader from "next/dynamic";
-
-const PostHogPageView = dynamicLoader(() => import("./pageview-tracker"), {
-  ssr: false,
-});
+import PostHogPageView from "./pageview-tracker";
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {

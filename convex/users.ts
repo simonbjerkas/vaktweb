@@ -3,13 +3,28 @@ import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import { filter } from "convex-helpers/server/filter";
 
-export const viewer = query({
+export const posthogUser = query({
   args: {},
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);
     if (userId === null) return null;
     const user = await ctx.db.get(userId);
     if (user === null) return null;
+    return user;
+  },
+});
+
+export const viewer = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await getAuthUserId(ctx);
+    if (userId === null) {
+      throw new Error("Not signed in");
+    }
+    const user = await ctx.db.get(userId);
+    if (user === null) {
+      throw new Error("User was deleted");
+    }
     return user;
   },
 });

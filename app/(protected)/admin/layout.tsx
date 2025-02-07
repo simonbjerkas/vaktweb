@@ -12,7 +12,9 @@ export default async function AdminLayout({
     api.users.viewer,
     {},
     { token: await convexAuthNextjsToken() },
-  );
+  ).catch(() => {
+    redirect("/signin");
+  });
   if (user.role !== "admin") {
     return redirect("/");
   }
