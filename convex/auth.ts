@@ -1,12 +1,20 @@
 import GitHub from "@auth/core/providers/github";
-import Resend from "@auth/core/providers/resend";
+import Google from "@auth/core/providers/google";
 import { convexAuth } from "@convex-dev/auth/server";
+import { ConvexError } from "convex/values";
+import { api } from "./_generated/api";
 
 export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
-  providers: [GitHub, Resend],
+  providers: [GitHub, Google],
   callbacks: {
     async createOrUpdateUser(ctx, { existingUserId, profile }) {
       if (existingUserId) return existingUserId;
+
+      const allowedEmail = await ctx.runQuery(api.new_user.getNewUser, {
+        email: profile.email,
+      });
+      if (!allowedEmail) throw new ConvexError("Email not allowed");
+
       return await ctx.db.insert("users", {
         email: profile.email,
         name: profile.name,

@@ -25,11 +25,8 @@ const UserData = async () => {
       token,
     },
   );
-  return preloadedUser ? (
-    <UserMenu preloadedUser={preloadedUser} />
-  ) : (
-    <>Welcome!</>
-  );
+
+  return <UserMenu preloadedUser={preloadedUser} />;
 };
 
 export default function ProtectedLayout({

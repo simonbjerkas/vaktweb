@@ -25,6 +25,9 @@ export default defineSchema({
   })
     .index("email", ["email"])
     .index("phone", ["phone"]),
+  new_users: defineTable({
+    email: v.string(),
+  }).index("by_email", ["email"]),
   locations: defineTable({
     name: v.string(),
     address: v.string(),

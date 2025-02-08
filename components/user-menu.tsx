@@ -15,13 +15,18 @@ import { PersonIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-
+import { redirect } from "next/navigation";
+import { usePathname } from "next/navigation";
 export function UserMenu({
   preloadedUser,
 }: {
   preloadedUser: Preloaded<typeof api.users.viewer>;
 }) {
   const user = usePreloadedQuery(preloadedUser);
+  const pathname = usePathname();
+  if (user.role === "new" && pathname !== "/profile/update") {
+    redirect("/profile/update");
+  }
   return (
     <div className="flex items-center gap-2 text-sm font-medium">
       {user.name}
