@@ -20,20 +20,17 @@ export async function getAuthUser() {
 
 type Role = "admin" | "moderator" | "user" | "new";
 
-const roleValues = new Map<Role, number>([
-  ["admin", 1],
-  ["moderator", 2],
-  ["user", 3],
-  ["new", 4],
-]);
-
-export async function requireRole(role: Role) {
+export async function requireRole(requiredRole: Role) {
   const user = await getAuthUser();
-  if (
-    (roleValues.get(user.role) ?? Infinity) <
-    (roleValues.get(role) ?? -Infinity)
-  ) {
+
+  const roleHierarchy: Record<Role, number> = {
+    admin: 3,
+    moderator: 2,
+    user: 1,
+    new: 0,
+  };
+
+  if (roleHierarchy[user.role] < roleHierarchy[requiredRole]) {
     redirect("/");
   }
-  return user;
 }

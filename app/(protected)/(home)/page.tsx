@@ -15,7 +15,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function Home() {
-  requireRole("user");
+  await requireRole("user");
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className="col-span-2 lg:col-span-1 lg:row-span-2 flex flex-col md:flex-row lg:flex-col gap-4">
