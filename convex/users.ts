@@ -39,21 +39,25 @@ export const updateUser = mutation({
     zip: v.number(),
     dob: v.string(),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx, { name, email, phone, address, city, zip, dob }) => {
     const userId = await getAuthUserId(ctx);
     if (userId === null) {
       throw new Error("Not signed in");
     }
+    const user = await ctx.db.get(userId);
+    if (user === null) {
+      throw new Error("User not found");
+    }
 
     return ctx.db.patch(userId, {
-      name: args.name,
-      email: args.email,
-      phone: args.phone,
-      address: args.address,
-      city: args.city,
-      zip: args.zip,
-      dob: args.dob,
-      role: "user",
+      name: name,
+      email: email,
+      phone: phone,
+      address: address,
+      city: city,
+      zip: zip,
+      dob: dob,
+      role: user.role === "new" ? "user" : user.role,
     });
   },
 });
