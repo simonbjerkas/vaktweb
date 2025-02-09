@@ -15,19 +15,19 @@ export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
       });
       if (!allowedEmail) throw new ConvexError("Email not allowed");
 
-      return await ctx.db.insert("users", {
+      const userId = await ctx.db.insert("users", {
         email: profile.email,
         name: profile.name,
         image: profile.image,
-        emailVerificationTime: profile.emailVerificationTime,
         phone: profile.phone,
-        phoneVerificationTime: profile.phoneVerificationTime,
         address: profile.address,
         city: profile.city,
         zip: profile.zip,
         dob: profile.dob,
         role: "new",
       });
+      await ctx.db.delete(allowedEmail._id);
+      return userId;
     },
   },
 });
