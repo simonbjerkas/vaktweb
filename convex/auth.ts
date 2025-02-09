@@ -20,10 +20,7 @@ export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
         name: profile.name,
         image: profile.image,
         phone: profile.phone,
-        address: profile.address,
-        city: profile.city,
-        zip: profile.zip,
-        dob: profile.dob,
+        last_login: new Date().toString(),
         role: "new",
       });
       await ctx.db.delete(allowedEmail._id);

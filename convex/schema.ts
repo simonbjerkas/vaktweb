@@ -5,15 +5,16 @@ import { v } from "convex/values";
 export default defineSchema({
   ...authTables,
   users: defineTable({
-    name: v.optional(v.string()),
+    name: v.string(),
+    email: v.string(),
     image: v.optional(v.string()),
-    email: v.optional(v.string()),
     phone: v.optional(v.string()),
     address: v.optional(v.string()),
     city: v.optional(v.string()),
     zip: v.optional(v.number()),
     dob: v.optional(v.string()),
     locations: v.optional(v.array(v.id("locations"))),
+    last_login: v.string(),
     role: v.union(
       v.literal("admin"),
       v.literal("moderator"),
