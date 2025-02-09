@@ -113,11 +113,11 @@ export function EventCalendar({ events }: { events: Event[] }) {
       </div>
 
       {/* Calendar Table */}
-      <table className="w-full border-collapse table-fixed">
+      <table className="w-full border-collapse table-fixed text-xs">
         <thead>
           <tr>
             {WEEKDAYS.map((day) => (
-              <th key={day} className="px-2 py-4 border">
+              <th key={day} className="px-2 py-3 text-sm border">
                 {day}
               </th>
             ))}
@@ -125,27 +125,27 @@ export function EventCalendar({ events }: { events: Event[] }) {
         </thead>
         <tbody>
           {calendarDays.map((week, weekIndex) => (
-            <tr key={weekIndex} className="h-24">
+            <tr key={weekIndex} className="h-16">
               {week.map((day) => {
                 const dayEvents = getEventsForDate(day);
                 return (
                   <td
                     key={day.toString()}
                     className={cn(
-                      "p-2 border align-top cursor-pointer transition-colors hover:bg-accent/50",
+                      "p-1 border align-top cursor-pointer transition-colors hover:bg-accent/50 relative",
                       !isSameMonth(day, currentMonth) &&
                         "text-muted-foreground bg-muted/40",
                       isToday(day) && "bg-accent",
                     )}
                   >
-                    <span className="inline-block size-6 text-sm">
+                    <span className="inline-block mb-0.5">
                       {format(day, "d")}
                     </span>
                     <div className="flex flex-col gap-1">
                       {dayEvents.map((event) => (
                         <div
                           key={event.id}
-                          className="px-1 py-0.5 text-xs rounded-sm bg-rose-500 text-primary-foreground truncate"
+                          className="rounded-sm px-1 bg-rose-600 text-secondary-foreground truncate"
                           title={event.summary}
                         >
                           {event.summary}

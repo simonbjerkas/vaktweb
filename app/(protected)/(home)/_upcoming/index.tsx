@@ -5,7 +5,7 @@ export { default as Loading } from "./loading";
 
 export const Upcoming = async () => {
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
         <CardTitle>Upcoming</CardTitle>
       </CardHeader>
