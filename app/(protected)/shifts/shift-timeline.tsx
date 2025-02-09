@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/chart";
 import { api } from "@/convex/_generated/api";
 import { Preloaded, usePreloadedQuery } from "convex/react";
-
+import { format } from "date-fns";
 const chartConfig = {
   shift: {
     label: "Shift",
@@ -28,16 +28,8 @@ export function ShiftTimeline({
   const chartData = shifts.map((shift) => ({
     name: shift.name,
     shift: [
-      parseInt(
-        new Date(shift.start).toLocaleTimeString("no-NO", {
-          hour: "2-digit",
-        }),
-      ),
-      parseInt(
-        new Date(shift.end).toLocaleTimeString("no-NO", {
-          hour: "2-digit",
-        }),
-      ),
+      parseInt(format(new Date(shift.start), "HH")),
+      parseInt(format(new Date(shift.end), "HH")),
     ],
   }));
 

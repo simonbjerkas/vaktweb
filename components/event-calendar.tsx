@@ -130,7 +130,7 @@ export function EventCalendar({ events }: { events: Event[] }) {
                 const dayEvents = getEventsForDate(day);
                 return (
                   <td
-                    key={day.toISOString()}
+                    key={day.toString()}
                     className={cn(
                       "p-2 border align-top cursor-pointer transition-colors hover:bg-accent/50",
                       !isSameMonth(day, currentMonth) &&

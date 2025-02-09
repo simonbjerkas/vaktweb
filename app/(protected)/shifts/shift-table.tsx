@@ -4,7 +4,7 @@ import { ColDef } from "ag-grid-community";
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useMemo } from "react";
-import { differenceInMinutes } from "date-fns";
+import { differenceInMinutes, format } from "date-fns";
 import { AgTable } from "@/components/ag-table";
 type RowData = {
   name: string;
@@ -26,14 +26,8 @@ export const ShiftTable = ({
   const rowData = useMemo(() => {
     return shifts.map((shift) => ({
       ...shift,
-      start: new Date(shift.start).toLocaleTimeString("no-NO", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      end: new Date(shift.end).toLocaleTimeString("no-NO", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
+      start: format(new Date(shift.start), "HH:mm"),
+      end: format(new Date(shift.end), "HH:mm"),
       hours:
         differenceInMinutes(new Date(shift.end), new Date(shift.start)) / 60,
     }));

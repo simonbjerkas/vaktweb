@@ -10,7 +10,7 @@ export const getShiftsByDay = query({
     const shifts = await ctx.db
       .query("shifts")
       .withIndex("by_day", (q) =>
-        q.eq("day", startOfDay(new Date(day)).toISOString()),
+        q.eq("day", startOfDay(new Date(day)).toString()),
       )
       .collect();
 
@@ -44,7 +44,7 @@ export const createShift = mutation({
   handler: async (ctx, { shift }) => {
     await ctx.db.insert("shifts", {
       ...shift,
-      day: startOfDay(new Date(shift.start)).toISOString(),
+      day: startOfDay(new Date(shift.start)).toString(),
     });
   },
 });

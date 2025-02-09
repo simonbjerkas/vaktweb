@@ -6,7 +6,7 @@ import { ShiftTimeline } from "./shift-timeline";
 
 export default async function ShiftsPage() {
   const preloadedShifts = await preloadQuery(api.shifts.getShiftsByDay, {
-    day: new Date().toISOString(),
+    day: new Date().toString(),
   });
   return (
     <div className="flex flex-col gap-4">

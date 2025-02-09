@@ -76,8 +76,8 @@ export const AddShiftForm = () => {
         ...values,
         employee: values.employee as Id<"users">,
         location: values.location as Id<"locations">,
-        start: values.start.toISOString(),
-        end: values.end.toISOString(),
+        start: values.start.toString(),
+        end: values.end.toString(),
       },
     })
       .catch((error) => {
