@@ -23,7 +23,10 @@ export default defineSchema({
     ),
   })
     .index("email", ["email"])
-    .index("phone", ["phone"]),
+    .index("phone", ["phone"])
+    .searchIndex("search_users", {
+      searchField: "name",
+    }),
   new_users: defineTable({
     email: v.string(),
   }).index("by_email", ["email"]),

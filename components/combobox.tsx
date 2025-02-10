@@ -21,12 +21,12 @@ import {
 import { Badge } from "./ui/badge";
 
 export function Combobox({
-  tags,
+  data,
   value,
   onChange,
   placeholder,
 }: {
-  tags: string[];
+  data: string[];
   value?: string[];
   onChange?: (value: string[]) => void;
   placeholder?: string;
@@ -45,7 +45,7 @@ export function Combobox({
           >
             {value
               ? value.map((tag) => {
-                  const tagLabel = tags.find((t) => t === tag);
+                  const tagLabel = data.find((t) => t === tag);
                   return tagLabel ? <Badge key={tag}>{tagLabel}</Badge> : "";
                 })
               : (placeholder ?? "Select a tag...")}
@@ -58,7 +58,7 @@ export function Combobox({
             <CommandList>
               <CommandEmpty>No tag found.</CommandEmpty>
               <CommandGroup>
-                {tags.map((tag) => (
+                {data.map((tag) => (
                   <CommandItem
                     key={tag}
                     value={tag}

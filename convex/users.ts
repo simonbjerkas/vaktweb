@@ -29,6 +29,51 @@ export const viewer = query({
   },
 });
 
+export const searchUsers = query({
+  args: {
+    query: v.string(),
+  },
+  handler: async (ctx, { query }) => {
+    return await ctx.db
+      .query("users")
+      .withSearchIndex("search_users", (q) => q.search("name", query))
+      .take(5)
+      .then(
+        (users) =>
+          users.map((user) => ({
+            _id: user._id,
+            name: user.name,
+            role: user.role,
+          })) ?? [],
+      );
+  },
+});
+
+export const updateUserRole = mutation({
+  args: {
+    userId: v.id("users"),
+    role: v.union(
+      v.literal("user"),
+      v.literal("admin"),
+      v.literal("moderator"),
+    ),
+  },
+  handler: async (ctx, { userId, role }) => {
+    const user = await ctx.db.get(userId);
+    if (user === null) {
+      throw new Error("User not found");
+    }
+
+    if (user.role === "new") {
+      throw new Error("User is new");
+    }
+
+    return ctx.db.patch(userId, {
+      role: role,
+    });
+  },
+});
+
 export const updateUser = mutation({
   args: {
     name: v.string(),

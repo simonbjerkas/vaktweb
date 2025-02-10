@@ -11,10 +11,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuthActions } from "@convex-dev/auth/react";
-import { PersonIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export function UserMenu({
   preloadedUser,
@@ -32,24 +32,27 @@ export function UserMenu({
             size="icon"
             className="rounded-full md:mr-8"
           >
-            <PersonIcon className="h-5 w-5" />
+            <Avatar>
+              <AvatarImage src={user.image} />
+              <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+            </Avatar>
             <span className="sr-only">Toggle user menu</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="mt-2">
+          <DropdownMenuLabel className="flex items-center gap-2 py-0 font-normal">
+            Theme
+            <ThemeToggle />
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
           <Link href="/profile">
-            <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+            <DropdownMenuItem>Your profile</DropdownMenuItem>
           </Link>
           {user.role === "admin" && (
             <DropdownMenuItem>
               <Link href="/admin">Admin</Link>
             </DropdownMenuItem>
           )}
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel className="flex items-center gap-2 py-0 font-normal">
-            Theme
-            <ThemeToggle />
-          </DropdownMenuLabel>
           <SignOutButton />
         </DropdownMenuContent>
       </DropdownMenu>
