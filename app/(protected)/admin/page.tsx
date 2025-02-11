@@ -29,7 +29,7 @@ export default function Admin() {
       <Separator className="my-4" />
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-bold">Users</h2>
-        <div className="flex gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
           <Card className="flex-1">
             <CardHeader>
               <CardTitle>Add new user</CardTitle>
@@ -73,7 +73,7 @@ export default function Admin() {
       <Separator className="my-4" />
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-bold">Locations and Halls</h2>
-        <div className="flex gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
           <Card className="flex-1">
             <CardHeader>
               <CardTitle>Create New Location</CardTitle>
