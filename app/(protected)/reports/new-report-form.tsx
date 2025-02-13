@@ -173,7 +173,7 @@ export default function NewReportForm() {
                   <FormItem>
                     <FormLabel>Tags</FormLabel>
                     <FormControl>
-                      <Combobox tags={tags} {...field} />
+                      <Combobox data={tags} {...field} />
                     </FormControl>
                     <FormDescription>Add relevant tags</FormDescription>
                     <FormMessage />
