@@ -31,7 +31,7 @@ export default async function Home() {
             </Suspense>
           </div>
         </div>
-        <div className="col-span-2 lg:col-span-1 lg:row-span-2 max-h-[500px]">
+        <div className="col-span-2 lg:col-span-1 lg:row-span-2 max-h-[600px]">
           <Suspense fallback={<UpcomingLoading />}>
             <Upcoming />
           </Suspense>
