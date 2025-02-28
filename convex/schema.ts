@@ -97,4 +97,24 @@ export default defineSchema({
     type: v.union(v.literal("2D"), v.literal("3D")),
     sold_seats: v.number(),
   }),
+  notifications: defineTable({
+    recipient: v.id("users"),
+    type: v.union(
+      v.literal("shift_assigned"),
+      v.literal("shift_removed"),
+      v.literal("shift_changed"),
+      v.literal("important_news"),
+      v.literal("report_comment"),
+      v.literal("report_status_changed"),
+    ),
+    read: v.boolean(),
+    title: v.string(),
+    message: v.string(),
+    related_id: v.optional(
+      v.union(v.id("shifts"), v.id("news"), v.id("reports")),
+    ),
+  })
+    .index("by_read", ["read"])
+    .index("by_recipient", ["recipient"])
+    .index("by_recipient_and_read", ["recipient", "read"]),
 });

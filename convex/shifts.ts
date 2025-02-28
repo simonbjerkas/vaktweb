@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { startOfDay } from "date-fns";
 
 export const getShiftsByDay = query({
@@ -45,6 +46,13 @@ export const createShift = mutation({
     await ctx.db.insert("shifts", {
       ...shift,
       day: startOfDay(new Date(shift.start)).toString(),
+    });
+    await ctx.scheduler.runAfter(0, internal.notifications.createNotification, {
+      recipient: shift.employee,
+      type: "shift_assigned",
+      read: false,
+      title: "Shift assigned",
+      message: `You have been assigned a shift on ${shift.start.split("T")[0]} from ${shift.start.split("T")[1]} to ${shift.end.split("T")[1]}`,
     });
   },
 });
