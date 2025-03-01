@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthActions } from "@convex-dev/auth/react";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { GitHubLogoIcon } from "@/components/github-icon";
 import { GoogleLogoIcon } from "@/components/google-icon";
 import { Button } from "@/components/ui/button";
 import { SignInMethodDivider } from "@/components/sigin-method-divider";

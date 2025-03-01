@@ -1,34 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 import {
   NavigationMenu,
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuLink,
-  navigationMenuTriggerStyle,
   NavigationMenuTrigger,
   NavigationMenuContent,
 } from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+
 import {
-  HomeIcon,
-  ResumeIcon as ScreeningIcon,
-  ReaderIcon as ReportIcon,
-  PersonIcon as EmployeeIcon,
+  HouseIcon as HomeIcon,
+  PlayIcon as ScreeningIcon,
+  FileIcon as ReportIcon,
+  UserIcon as EmployeeIcon,
   CalendarIcon,
-  HamburgerMenuIcon,
-  Cross1Icon,
-} from "@radix-ui/react-icons";
-import Link from "next/link";
-import { Button } from "./ui/button";
+  MenuIcon as HamburgerMenuIcon,
+  XIcon as Cross1Icon,
+} from "lucide-react";
+
+import { cn } from "@/lib/utils";
 import { useScreenSize } from "@/hooks/use-screen-size";
+
+import Link from "next/link";
 
 const links = [
   {
     href: "/",
     label: "Home",
-    icon: <HomeIcon />,
+    icon: <HomeIcon className="size-4" />,
     children: [
       {
         href: "/news",
@@ -44,22 +47,22 @@ const links = [
   {
     href: "/shifts",
     label: "Shifts",
-    icon: <CalendarIcon />,
+    icon: <CalendarIcon className="size-4" />,
   },
   {
     href: "/reports",
     label: "Reports",
-    icon: <ReportIcon />,
+    icon: <ReportIcon className="size-4" />,
   },
   {
     href: "/screenings",
     label: "Screenings",
-    icon: <ScreeningIcon />,
+    icon: <ScreeningIcon className="size-4" />,
   },
   {
     href: "/employees",
     label: "Employees",
-    icon: <EmployeeIcon />,
+    icon: <EmployeeIcon className="size-4" />,
   },
 ];
 
@@ -67,23 +70,36 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const screenSize = useScreenSize();
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <>
       {screenSize === "mobile" || screenSize === "tablet" ? (
         <>
           <Button
             className={cn(
-              "fixed right-4 z-50",
-              screenSize === "mobile" && "bottom-4 right-4",
+              "z-50",
+              screenSize === "tablet" && "absolute right-4",
+              screenSize === "mobile" && "fixed bottom-4 right-4",
             )}
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? (
-              <Cross1Icon className="size-9" />
+              <Cross1Icon className="size-4" />
             ) : (
-              <HamburgerMenuIcon className="size-9" />
+              <HamburgerMenuIcon className="size-4" />
             )}
           </Button>
           <div
@@ -94,7 +110,7 @@ export const Navbar = () => {
                 : "opacity-0 -translate-y-full duration-100 pointer-events-none aria-hidden",
             )}
           >
-            <ul className="p-4 pb-24 flex flex-col gap-4 h-full">
+            <ul className="p-4 pb-16 container mx-auto flex flex-col gap-4 h-full">
               <div className="flex-1"></div>
               {links.map((link) => (
                 <li key={link.href}>
@@ -140,7 +156,7 @@ export const Navbar = () => {
                   {link.children ? (
                     <>
                       <Link href={link.href} legacyBehavior passHref>
-                        <NavigationMenuTrigger>
+                        <NavigationMenuTrigger className="cursor-pointer">
                           <span className="mr-2">{link.icon}</span>
                           {link.label}
                         </NavigationMenuTrigger>
@@ -174,10 +190,8 @@ export const Navbar = () => {
                     </>
                   ) : (
                     <Link href={link.href} legacyBehavior passHref>
-                      <NavigationMenuLink
-                        className={cn(navigationMenuTriggerStyle(), "gap-2")}
-                      >
-                        {link.icon}
+                      <NavigationMenuLink className="flex flex-row items-center">
+                        <span className="mr-2">{link.icon}</span>
                         {link.label}
                       </NavigationMenuLink>
                     </Link>

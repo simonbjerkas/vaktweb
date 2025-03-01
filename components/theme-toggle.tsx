@@ -1,7 +1,7 @@
 "use client";
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { DesktopIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { MonitorSmartphoneIcon, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
@@ -9,13 +9,13 @@ export function ThemeToggle() {
   return (
     <ToggleGroup type="single" size="sm" onValueChange={setTheme} value={theme}>
       <ToggleGroupItem value="light" aria-label="Light">
-        <SunIcon />
+        <SunIcon className="size-4" />
       </ToggleGroupItem>
       <ToggleGroupItem value="dark" aria-label="Dark">
-        <MoonIcon />
+        <MoonIcon className="size-4" />
       </ToggleGroupItem>
       <ToggleGroupItem value="system" aria-label="System">
-        <DesktopIcon />
+        <MonitorSmartphoneIcon className="size-4" />
       </ToggleGroupItem>
     </ToggleGroup>
   );

@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,14 +12,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAuthActions } from "@convex-dev/auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { toast } from "sonner";
+
 import Link from "next/link";
+import { redirect } from "next/navigation";
+
 import { Preloaded, usePreloadedQuery, useQuery } from "convex/react";
+import { useAuthActions } from "@convex-dev/auth/react";
 import { api } from "@/convex/_generated/api";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { useToast } from "./ui/use-toast";
-import { useEffect, useState } from "react";
-import { ToastAction } from "./ui/toast";
 
 export function UserMenu({
   preloadedUser,
@@ -29,21 +32,20 @@ export function UserMenu({
   const notificationsCount = useQuery(api.notifications.getNotificationsCount, {
     recipient: user._id,
   });
-  const { toast } = useToast();
 
   useEffect(() => {
     if (typeof notificationsCount === "number" && notificationsCount > 0) {
-      toast({
-        title: "You have new notifications",
+      toast("You have new notifications", {
         description: `${notificationsCount} new notifications`,
-        action: (
-          <Link href="/profile">
-            <ToastAction altText="View notifications">View</ToastAction>
-          </Link>
-        ),
+        action: {
+          label: "View",
+          onClick: () => {
+            redirect("/profile");
+          },
+        },
       });
     }
-  }, [notificationsCount, toast]);
+  }, [notificationsCount]);
   return (
     <div className="flex items-center gap-2 text-sm font-medium">
       {user.name}
@@ -72,9 +74,9 @@ export function UserMenu({
               <DropdownMenuItem>Your profile</DropdownMenuItem>
             </Link>
             {user.role === "admin" && (
-              <DropdownMenuItem>
-                <Link href="/admin">Admin</Link>
-              </DropdownMenuItem>
+              <Link href="/admin">
+                <DropdownMenuItem>Admin</DropdownMenuItem>
+              </Link>
             )}
             <SignOutButton />
           </DropdownMenuContent>

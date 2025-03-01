@@ -38,9 +38,8 @@ import { useMutation, useQuery } from "convex/react";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { useToast } from "@/components/ui/use-toast";
 import { Id } from "@/convex/_generated/dataModel";
-import { ToastAction } from "@/components/ui/toast";
+import { toast } from "sonner";
 
 const userSchema = z.object({
   role: z.enum(["admin", "moderator", "user"]),
@@ -56,7 +55,6 @@ export function ChangeRoleForm() {
     role: "admin" | "moderator" | "user";
   } | null>(null);
 
-  const { toast } = useToast();
   const updateUserRole = useMutation(api.users.updateUserRole);
   const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
@@ -89,19 +87,21 @@ export function ChangeRoleForm() {
       role: values.role,
     })
       .then(() => {
-        toast({
-          title: "User role updated",
+        toast.success("User role updated", {
           description: `User ${selectedUser.name} role has been updated to ${values.role}.`,
         });
         form.reset();
         setSelectedUser(null);
       })
       .catch(() => {
-        toast({
-          title: "Failed to update user role",
+        toast.error("Failed to update user role", {
           description: "Please try again.",
-          variant: "destructive",
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
+          action: {
+            label: "Try again",
+            onClick: () => {
+              onSubmit(values);
+            },
+          },
         });
       });
   }

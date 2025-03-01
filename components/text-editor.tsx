@@ -12,13 +12,13 @@ import { Color } from "@tiptap/extension-color";
 
 import { Button } from "./ui/button";
 import {
-  FontBoldIcon,
-  FontItalicIcon,
+  BoldIcon,
+  ItalicIcon,
   UnderlineIcon,
-  Pencil1Icon,
-  Cross2Icon,
-} from "@radix-ui/react-icons";
-import { HighlighterIcon } from "lucide-react";
+  PencilIcon,
+  CrossIcon,
+  HighlighterIcon,
+} from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useState } from "react";
 
@@ -102,7 +102,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
           aria-label="Toggle bold font."
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
-          <FontBoldIcon />
+          <BoldIcon />
         </Button>
       </li>
       <li>
@@ -113,7 +113,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
           aria-label="Toggle italic font."
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
-          <FontItalicIcon />
+          <ItalicIcon />
         </Button>
       </li>
       <li>
@@ -182,7 +182,7 @@ const ColorButton = ({ editor }: { editor: Editor }) => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <Pencil1Icon />
+          <PencilIcon />
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -230,7 +230,7 @@ const ColorButton = ({ editor }: { editor: Editor }) => {
             className="w-full justify-start gap-2 text-sm transition-transform hover:scale-x-105"
             onClick={() => editor.chain().focus().unsetColor().run()}
           >
-            <Cross2Icon className="size-4" />
+            <CrossIcon className="size-4" />
             <span>Remove color</span>
           </Button>
         </div>

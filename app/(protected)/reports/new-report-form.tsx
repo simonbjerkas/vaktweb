@@ -19,7 +19,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -36,7 +35,7 @@ import { useMutation, useQuery } from "convex/react";
 import { useEffect, useState } from "react";
 import { Id } from "@/convex/_generated/dataModel";
 import { Combobox } from "@/components/combobox";
-import { ToastAction } from "@/components/ui/toast";
+import { toast } from "sonner";
 
 const newReportSchema = z.object({
   body: z.string().min(1, "Report content is required"),
@@ -53,7 +52,6 @@ export default function NewReportForm() {
   const halls = useQuery(api.halls.getAllHalls);
   const tags = useQuery(api.tags.getTagByType, { type: "report" }) ?? [];
   const createReport = useMutation(api.reports.createReport);
-  const { toast } = useToast();
 
   const form = useForm<FormData>({
     resolver: zodResolver(newReportSchema),
@@ -80,20 +78,22 @@ export default function NewReportForm() {
       tags: values.tags as Id<"tags">[],
       body: values.body,
     })
-      .catch((error) => {
-        toast({
-          title: "Error",
-          variant: "destructive",
-          description: error.message,
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
-        });
-      })
       .then(() => {
-        toast({
-          title: "Report submitted",
+        toast.success("Report submitted", {
           description: "Your report has been submitted successfully",
         });
         setOpen(false);
+      })
+      .catch((error) => {
+        toast.error("Something went wrong", {
+          description: error.message,
+          action: {
+            label: "Try again",
+            onClick: () => {
+              onSubmit(values);
+            },
+          },
+        });
       });
   }
 

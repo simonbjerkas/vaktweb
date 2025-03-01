@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { api } from "@/convex/_generated/api";
 import { Doc } from "@/convex/_generated/dataModel";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,7 +37,6 @@ const updateUserSchema = z.object({
 
 export function UpdateUserForm({ user }: { user: Doc<"users"> }) {
   const updateUser = useMutation(api.users.updateUser);
-  const { toast } = useToast();
   const form = useForm<z.infer<typeof updateUserSchema>>({
     resolver: zodResolver(updateUserSchema),
     defaultValues: {
@@ -52,15 +51,24 @@ export function UpdateUserForm({ user }: { user: Doc<"users"> }) {
   });
 
   async function onSubmit(values: z.infer<typeof updateUserSchema>) {
-    await updateUser({ ...values, dob: values.dob.toISOString() }).then(
-      async () => {
-        toast({
-          title: "User updated",
+    await updateUser({ ...values, dob: values.dob.toISOString() })
+      .then(async () => {
+        toast.success("User updated", {
           description: "Your user has been updated",
         });
         redirect("/profile");
-      },
-    );
+      })
+      .catch((error) => {
+        toast.error("Something went wrong", {
+          description: error.message,
+          action: {
+            label: "Try again",
+            onClick: () => {
+              onSubmit(values);
+            },
+          },
+        });
+      });
   }
 
   return (

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { format } from "date-fns";
-import { CalendarIcon, ClockIcon } from "@radix-ui/react-icons";
+import { CalendarDays as CalendarIcon, Clock as ClockIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";

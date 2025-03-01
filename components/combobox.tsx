@@ -18,7 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Badge } from "./ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 export function Combobox({
   data,

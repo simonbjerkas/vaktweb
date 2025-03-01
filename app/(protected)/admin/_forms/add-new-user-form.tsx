@@ -15,8 +15,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { api } from "@/convex/_generated/api";
 import { useMutation } from "convex/react";
-import { useToast } from "@/components/ui/use-toast";
-import { ToastAction } from "@/components/ui/toast";
+import { toast } from "sonner";
+
 const userSchema = z.object({
   email: z.string().email(),
 });
@@ -29,25 +29,26 @@ export function AddNewUserForm() {
     },
   });
   const addNewUser = useMutation(api.new_user.addNewUser);
-  const { toast } = useToast();
 
   async function onSubmit(values: z.infer<typeof userSchema>) {
     await addNewUser({
       email: values.email,
     })
       .then(() => {
-        toast({
-          title: "User added",
+        toast.success("User added", {
           description: "User has been added to the database.",
         });
         form.reset();
       })
       .catch(() => {
-        toast({
-          title: "Failed to add user",
+        toast.error("Failed to add user", {
           description: "Please try again.",
-          variant: "destructive",
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
+          action: {
+            label: "Try again",
+            onClick: () => {
+              onSubmit(values);
+            },
+          },
         });
       });
   }

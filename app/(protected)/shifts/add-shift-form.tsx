@@ -28,8 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -49,7 +48,6 @@ const shiftSchema = z.object({
 });
 
 export const AddShiftForm = () => {
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof shiftSchema>>({
@@ -80,20 +78,22 @@ export const AddShiftForm = () => {
         end: values.end.toString(),
       },
     })
-      .catch((error) => {
-        toast({
-          title: "Something went wrong",
-          variant: "destructive",
-          description: error.message,
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
-        });
-      })
       .then(() => {
-        toast({
-          title: "Shift created",
+        toast.success("Shift created", {
           description: "The new shift has been created",
         });
         setOpen(false);
+      })
+      .catch((error) => {
+        toast.error("Something went wrong", {
+          description: error.message,
+          action: {
+            label: "Try again",
+            onClick: () => {
+              onSubmit(values);
+            },
+          },
+        });
       });
   }
 

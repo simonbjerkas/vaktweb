@@ -20,7 +20,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -34,8 +33,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { ToastAction } from "@/components/ui/toast";
 import { Id } from "@/convex/_generated/dataModel";
+import { toast } from "sonner";
 
 const hallSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -44,7 +43,6 @@ const hallSchema = z.object({
 });
 
 export function CreateNewHallForm() {
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
   const locations = useQuery(api.locations.getLocations);
@@ -63,20 +61,22 @@ export function CreateNewHallForm() {
       ...values,
       location: values.location as Id<"locations">,
     })
-      .catch((error) => {
-        toast({
-          title: "Something went wrong",
-          variant: "destructive",
-          description: error.message,
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
-        });
-      })
       .then(() => {
-        toast({
-          title: "Hall created",
+        toast.success("Hall created", {
           description: "The new hall has been created",
         });
         setOpen(false);
+      })
+      .catch((error) => {
+        toast.error("Something went wrong", {
+          description: error.message,
+          action: {
+            label: "Try again",
+            onClick: () => {
+              onSubmit(values);
+            },
+          },
+        });
       });
   }
 

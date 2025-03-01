@@ -20,8 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 import { api } from "@/convex/_generated/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "convex/react";
@@ -40,7 +39,6 @@ const locationSchema = z.object({
 });
 
 export function CreateNewLocationForm() {
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
   const createLocation = useMutation(api.locations.createLocation);
@@ -57,20 +55,22 @@ export function CreateNewLocationForm() {
 
   async function onSubmit(values: z.infer<typeof locationSchema>) {
     await createLocation(values)
-      .catch((error) => {
-        toast({
-          title: "Something went wrong",
-          variant: "destructive",
-          description: error.message,
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
-        });
-      })
       .then(() => {
-        toast({
-          title: "Location created",
+        toast.success("Location created", {
           description: "The new location has been created",
         });
         setOpen(false);
+      })
+      .catch((error) => {
+        toast.error("Something went wrong", {
+          description: error.message,
+          action: {
+            label: "Try again",
+            onClick: () => {
+              onSubmit(values);
+            },
+          },
+        });
       });
   }
 
